@@ -32,8 +32,11 @@ const [products, setProducts] = useState([]);
 
 function handleUpdate() 
 { 
+  const filtered = products.filter(p => p.quantity > 0); 
+  setProducts(filtered);
+
   const updatedCart = {};
-  products.forEach(item => {
+  filtered.forEach(item => {
     updatedCart[item.id] = item.quantity;
   });
 
@@ -54,16 +57,13 @@ function RemoveItem(index)
   
   const updated = [...products];
   updated[index].quantity--;
-
    if (updated[index].quantity <= 0) {
      handleUpdate() 
+     localStorage.setItem("my-cart", JSON.stringify(updatedCart));
      updated.splice(index, 1);
     
   }
-
-  setProducts(updated);
-
-
+    setProducts(updated);
 }
   function blur()
   {
