@@ -41,11 +41,13 @@ function handleUpdate()
   localStorage.setItem("my-cart", JSON.stringify(updatedCart));
   SetUpdate(true);
  
+ 
 }
 function AddItem(index) {
   const updated = [...products];
   updated[index].quantity++;
    setProducts(updated);
+ 
    
 }
 
@@ -57,9 +59,13 @@ function RemoveItem(index)
 
    if (updated[index].quantity <= 0) {
     updated.splice(index, 1);
+ setCart(updated); 
+  localStorage.setItem("my-cart", JSON.stringify(updated));
+    
   }
 
   setProducts(updated);
+
 
 }
   function blur()
@@ -112,7 +118,7 @@ function RemoveItem(index)
         <button className="bg-red-400 rounded text-white m-1 py-[5px] px-[25px]">Apply Coupon</button>
         </div>
         <div className="items-center flex flex-col m-10">
-          <button  className="bg-red-400 rounded text-white mt-2 py-[5px] px-[25px]"onClick={handleUpdate} onBlur={blur}>Update Cart</button>
+          <button  className="bg-red-400 rounded text-white mt-2 py-[5px] px-[25px]" onClick={handleUpdate} onBlur={blur}>Update Cart</button>
           {update && <div className="text-red-400 text-l ">Update Successfull!</div> }
     </div>
     </div>}
