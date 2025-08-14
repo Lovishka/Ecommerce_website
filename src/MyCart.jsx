@@ -31,7 +31,7 @@ const [products, setProducts] = useState([]);
   total = total.toFixed(2);
 
 function handleUpdate() 
-{
+{ 
   const updatedCart = {};
   products.forEach(item => {
     updatedCart[item.id] = item.quantity;
@@ -47,8 +47,6 @@ function AddItem(index) {
   const updated = [...products];
   updated[index].quantity++;
    setProducts(updated);
- 
-   
 }
 
 function RemoveItem(index)
@@ -58,9 +56,8 @@ function RemoveItem(index)
   updated[index].quantity--;
 
    if (updated[index].quantity <= 0) {
-    updated.splice(index, 1);
- setCart(updated); 
-  localStorage.setItem("my-cart", JSON.stringify(updated));
+     handleUpdate() 
+     updated.splice(index, 1);
     
   }
 
@@ -72,12 +69,8 @@ function RemoveItem(index)
   {
     SetUpdate(false)
   }
-
-
-
-
-
-  return <div className=" min-h-[calc(100vh-160px)] bg-gray-100 ">
+  
+  return   <div className=" min-h-[calc(100vh-160px)] bg-gray-100 ">
     {products.length!=0 && <Link to="/" className="self-start mt-5 flex font-bold  text-red-400 items-center" >
          <HiArrowNarrowLeft className="text-4xl text-red-400"/>  HOME
     </Link>}
@@ -93,7 +86,7 @@ function RemoveItem(index)
         {products.length==0 && <EmptyCart></EmptyCart>}
          {products.map(function (product, index) {
         return (
-          <div key={index} className="border-1 border-gray-300 items-center text-center  grid grid-cols-5 ">
+           <div key={index} className="border-1 border-gray-300 items-center text-center  grid grid-cols-5 ">
            <img className="w-20" src={product.thumbnail}></img>
             <h2 className="text-s font-bold text-red-500">{product.title}</h2>
             <p>{product.price}</p>
@@ -130,7 +123,7 @@ function RemoveItem(index)
             <p className="text-xl font-semibold  font-sans h-15 mt-5 mr-5 self-end justify-center">TOTAL : {total}</p>
             <button className="bg-red-400 rounded text-white  py-[5px] px-[25px] m-2">Proceed To Checkout</button>
     </div>}
-</div>
+    </div>
   </div>
 }
 
