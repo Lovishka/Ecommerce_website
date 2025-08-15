@@ -3,10 +3,11 @@ import { Formik, useFormik } from "formik";
 import { BiCart } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+
 function Login()
 {
     const[log,setLog]=useState(false)
-
+   
     function callApi(values)
     {
         console.log("email",values.email,"password",values.Mypassword);
@@ -29,7 +30,9 @@ function Login()
         validationSchema:schema,
     });
 
-
+ 
+        
+    
 
   return (
     
@@ -47,7 +50,9 @@ function Login()
      type="email"
      id="email"
      autoComplete="email"
-     className="border-1 w-80 h-10 text-white border-white"
+     className={`border-1 w-80 h-10 text-white ${
+    touched.email && errors.email ? 'border-red-500' : 'border-white'
+  }`}
      ></input>
      {touched.email && errors.email && <div className="text-red-500">{errors.email}</div>}
      <label htmlFor="Mypassword" className="sr-only">Password</label>
@@ -60,9 +65,11 @@ function Login()
      type="password"
      id="Mypassword"
      autoComplete="current-password"
-     className="border-1 w-80 h-10  text-white border-white"
+     className={`border-1 w-80 h-10 text-white ${
+    touched.Mypassword && errors.Mypassword ? 'border-red-500' : 'border-white'
+  }`}
      ></input>
-      {touched.Mypassword && errors.Mypassword  && <div className="text-red-500">{errors.Mypassword}</div>}
+      {touched.Mypassword && errors.Mypassword  && <div className="text-red-500  ">{errors.Mypassword}</div>}
     {!log && <button type={"button"}  onClick={resetForm} className="bg-white text-blue-900 w-80 h-10 text-2xl font-bold">Reset</button>}
      {!log && <button type={"submit"} className="bg-white text-blue-900 w-80 h-10 text-2xl font-bold disabled:bg-gray-400" disabled={!isValid || !dirty}>Login</button>}
      </div>
