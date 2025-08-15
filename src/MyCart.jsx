@@ -3,7 +3,7 @@ import { getProduct } from "./Dummy";
 import EmptyCart from "./EmptyCart";
 import { Link } from 'react-router-dom';
 import { HiArrowNarrowLeft , HiPlusSm, HiOutlineMinusSm } from "react-icons/hi";
-
+import { RiDeleteBin5Line } from "react-icons/ri";
 function MyCart({props, setCart})
 {
 
@@ -24,7 +24,7 @@ const [products, setProducts] = useState([]);
     ).then(function (data) {
       setProducts(data);
     });
-  }, []); 
+  }); 
   let total = products.reduce(function (sum, product) {
   return sum + product.price * product.quantity;
 }, 0);
@@ -46,6 +46,18 @@ function handleUpdate()
  
  
 }
+function deleteItem(index)
+{
+console.log(index);
+ const updated = [...products];
+  updated[index].quantity=0;
+   
+     handleUpdate() 
+     localStorage.setItem("my-cart", JSON.stringify(updated));
+     updated.splice(index, 1);
+     
+    setProducts(updated);
+}
 function AddItem(index) {
   const updated = [...products];
   updated[index].quantity++;
@@ -59,10 +71,9 @@ function RemoveItem(index)
   updated[index].quantity--;
    if (updated[index].quantity <= 0) {
      handleUpdate() 
-     localStorage.setItem("my-cart", JSON.stringify(updatedCart));
+     localStorage.setItem("my-cart", JSON.stringify(updated));
      updated.splice(index, 1);
-    
-  }
+     }
     setProducts(updated);
 }
   function blur()
@@ -87,7 +98,10 @@ function RemoveItem(index)
          {products.map(function (product, index) {
         return (
            <div key={index} className="border-1 border-gray-300 items-center text-center  grid grid-cols-5 ">
+          <div className="flex  items-center ">
+            <RiDeleteBin5Line  className="w-5 mr-7" onClick={() => deleteItem(index)}/>
            <img className="w-20" src={product.thumbnail}></img>
+           </div>
             <h2 className="text-s font-bold text-red-500">{product.title}</h2>
             <p>{product.price}</p>
             <> <div className="border-1 border-gray-400 rounded-full flex justify-between w-20 ml-15">
